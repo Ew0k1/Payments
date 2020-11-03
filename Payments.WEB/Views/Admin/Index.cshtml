@@ -1,0 +1,44 @@
+﻿@model  Payments.WEB.Models.Administrator.ClientProfilesViewModel
+@using Payments.WEB.Helpers
+@{
+    ViewBag.Title = "Admin panel";
+}
+<h1> Admin panel</h1>
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.ActionLink("Surname", "Index", new { sortOrder = ViewBag.SurnameSortParam }, new { @class = "text-light " })
+                    </th>
+                    <th> @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam }, new { @class = "text-light" })</th>
+                    <th> @Html.ActionLink("Middle name", "Index", new { sortOrder = ViewBag.MiddleNameSortParam }, new { @class = "text-light" })</th>
+                    <th>@Html.ActionLink("Birth date", "Index", new { sortOrder = ViewBag.BirthDateSortParam }, new { @class = "text-light" })</th>
+                    <th>@Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StatusSortParam }, new { @class = "text-light" })</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var profile in Model.UserProfiles)
+                {
+
+                    <tr class="table-active">
+                        <td>@profile.Surname</td>
+                        <td>@profile.Name</td>
+                        <td>@profile.MiddleName</td>
+                        <td>@profile.BirthDate.ToShortDateString()</td>
+                        <td>@profile.GetStatus(profile.IsBlocked)</td>
+                        <td>@Html.ActionLink("Details", "ViewProfile", new { id = profile.Id }, new { @class = "profileItem text-info" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+        <div class="btn-group">
+            @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron p-4">
+    <div class="row">
+        <div class="col-lg-8 col">
+            <img src="~/Content/Images/main-page.jpeg" alt="payments" height="500" class="main-page-img img-fluid" />
+        </div>
+        <div class="col-lg-4 col d-flex align-items-center justify-content-center">
+            <div class="">
+                <h1>Payment$</h1>
+                <p class="lead">Send money in seconds</p>
+               
+                        @Html.ActionLink("Sign up", "Register", "Account", null, new { @class = "btn btn-dark btn-lg" })
+                   
+                        @Html.ActionLink("Sign in", "Login", "Account", null, new { @class = "btn btn-dark btn-lg" })
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Availability</h2>
+        <p>
+            Any Internet user who has an electronic account or a bank card can make a payment in minutes
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Speed</h2>
+        <p>A payment takes several seconds, in some cases up to a minute. Going to the store, sending the payment by mail or by bank check would take much more time.</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Convenience</h2>
+        <p>All money transfers can be made anytime, anywhere. To do this, just have an internet connection.</p>
+
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model Payments.WEB.Models.Account.UserProfileViewModel
+
+@{
+    ViewBag.Title = "User Profile";
+}
+
+@Model.Surname
+@Model.Name
+@Model.MiddleName
+
+@Model.BirthDate.ToShortDateString()
+@Model.GetStatus(Model.IsBlocked);
+
+@if (Model.Cards.Count == 0)
+{
+    <p>No cards</p>
+}
+else
+{
+    foreach (var card in Model.Cards)
+    {
+        @card.Name
+        @card.Number
+    }
+}
+
+@if (Model.Accounts.Count == 0)
+{
+    <p>No accounts</p>
+}
+else
+{
+    foreach (var account in Model.Accounts)
+    {
+        @account.Name
+        @account.Number
+        @account.Balance
+        @Model.GetStatus(account.IsBlocked)
+        @account.Limit
+    }
+}

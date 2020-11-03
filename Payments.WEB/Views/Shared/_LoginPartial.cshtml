@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    
+    @Html.AntiForgeryToken()
+    <ul class="navbar-nav ml-auto nav-flex-icons account-block">
+        @*<li class="nav-item">
+            <a class="nav-link waves-effect waves-light">
+                1
+                <i class="fas fa-envelope"></i>
+            </a>
+        </li>*@
+        <li class="nav-item avatar dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                @*<img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0 " height="40"*@
+                <img src="~/Content/Images/profile-avatar.png" class="rounded-circle z-depth-0 " height="40"
+                     alt="avatar image">
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                 aria-labelledby="navbarDropdownMenuLink-55">
+                @Html.ActionLink("Account", "UserProfile", "Account", new { area = "" }, new { @class = "dropdown-item" })
+                @Html.ActionLink("Log Out", "Logout", "Account", new { area = "" }, new { @class = "dropdown-item" })
+            </div>
+        </li>
+    </ul>
+
+}
+else
+{
+    @Html.AntiForgeryToken()
+    <ul class="navbar-nav ml-auto nav-flex-icons account-block">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+    </ul>
+}

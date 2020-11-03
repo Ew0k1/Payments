@@ -1,0 +1,40 @@
+﻿@model Payments.WEB.Models.Card.AccountViewModel
+@{
+    ViewBag.Title = "Delete Card";
+}
+
+
+<div class="modal-content">
+
+    <!-- Modal Header -->
+    <div class="modal-header">
+        <h4 class="modal-title text-danger">  Are you sure you want to block this account?</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+    </div>
+
+    <!-- Modal body -->
+    <div class="modal-body">
+        <p>
+            Name: @Model.Name
+        </p>
+        <p>
+            Number: @Model.Number
+        </p>
+       <p>
+           Balance: @Model.Balance UAH
+       </p>
+       <p class="text-secondary">
+           To unblock an account, you need to make a request to the moderator to unlock.
+       </p>
+    </div>
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        @using (Html.BeginForm())
+        {
+            <input type="submit" value="Block" class="btn btn-danger" />
+        }
+    </div>
+
+</div>

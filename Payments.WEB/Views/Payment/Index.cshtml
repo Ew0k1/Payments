@@ -1,0 +1,127 @@
+﻿@model Payments.WEB.Models.Payment.PaymentListViewModel
+
+@{
+    ViewBag.Title = "Payments";
+}
+
+<div class="container">
+
+    <section class="p-3">
+        @Html.ActionLink("Create payment", "CreatePayment", null, new { @class = "btn btn-dark" })
+    </section>
+    <div class="row">
+        <div class="col-6">
+            <h3 class="m-3">Sent</h3>
+            <div id="accordion1">
+                @{int i = 0;}
+                @foreach (var item in Model.PaymentsSent)
+                {
+                    <div class="account shadow ">
+                        @if (i == 0)
+                        {
+                            <div class="card">
+                                <div class="card-header" id="heading_@i">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-light" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="true" aria-controls="collapse_@i">
+                                            @item.Name
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapse_@i" class="collapse show" aria-labelledby="heading_@i" data-parent="#accordion1">
+                                    <div class="card-body">
+                                        <p>Number: @item.Recipient.Number</p>
+                                        <p>Amount: @item.Amount UAH</p>
+                                        <p>Date: @item.Date </p>
+                                        <p>Details: @item.Details </p>
+                                        <p>Sender number: @item.Sender.Number </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card">
+                                <div class="card-header" id="heading_@i">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="false" aria-controls="collapse_@i">
+                                            @item.Name
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapse_@i" class="collapse" aria-labelledby="heading_@i" data-parent="#accordion1">
+                                    <div class="card-body">
+                                        <p>Number: @item.Recipient.Number</p>
+                                        <p>Amount: @item.Amount UAH</p>
+                                        <p>Date: @item.Date </p>
+                                        <p>Details: @item.Details </p>
+                                        <p>Sender number: @item.Sender.Number </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    i++;
+                }
+            </div>
+        </div>
+        <div class="col-6">
+            <h3 class="m-3">Received</h3>
+            <div id="accordion2">
+                @{int k = 0;}
+                @foreach (var item in Model.PaymentsReceived)
+                {
+                    <div class="account shadow ">
+                        @if (k == 0)
+                        {
+                            <div class="card">
+                                <div class="card-header" id="headingS_@k">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-light" data-toggle="collapse" data-target="#collapseS_@k" aria-expanded="true" aria-controls="collapseS_@k">
+                                            @item.Name
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseS_@k" class="collapse show" aria-labelledby="headingS_@k" data-parent="#accordion2">
+                                    <div class="card-body">
+                                        <p>Number: @item.Recipient.Number</p>
+                                        <p>Amount: @item.Amount UAH</p>
+                                        <p>Date: @item.Date </p>
+                                        <p>Details: @item.Details </p>
+                                        <p>Sender number: @item.Sender.Number </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card">
+                                <div class="card-header" id="headingS_@k">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapseS_@k" aria-expanded="false" aria-controls="collapseS_@k">
+                                            @item.Name
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseS_@k" class="collapse" aria-labelledby="headingS_@k" data-parent="#accordion2">
+                                    <div class="card-body">
+                                        <p>Number: @item.Recipient.Number</p>
+                                        <p>Amount: @item.Amount UAH</p>
+                                        <p>Date: @item.Date </p>
+                                        <p>Details: @item.Details </p>
+                                        <p>Sender number: @item.Sender.Number </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    k++;
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,74 @@
+﻿@model Payments.WEB.Models.Card.AddCardViewModel
+
+@{
+    ViewBag.Title = "Add Card";
+}
+
+<h2 class="text-center">Add new card</h2>
+
+<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class=" form-group">
+            @Html.LabelFor(model => model.Number)
+            @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @placeholder = "1234 5678 9101 1112", @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Number, "", new { @class = "text-danger" })
+        </div>
+        <div class=" form-group">
+            @Html.LabelFor(model => model.Name)
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @placeholder = "e.g. Elon Musk", @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <label><span class="hidden-xs">Expiry Month</span></label>
+
+                @Html.EditorFor(model => model.Month, new { htmlAttributes = new { @placeholder = "YY", @length = "2", @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Month, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <label><span class="hidden-xs">Expiry Year</span></label>
+                @Html.EditorFor(model => model.Year, new
+                {
+                    htmlAttributes = new
+                    {
+                        @placeholder = "YY",
+                        @length = "2",
+                        @id = "card-year",
+                        @class = "form-control"
+                    }
+                })
+
+                @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                @Html.LabelFor(model => model.SecurityCode, htmlAttributes: new { @class = "control-label", data_toggle = "tooltip", title = "Three-digits code on the back of your card" })
+                @Html.EditorFor(model => model.SecurityCode, new
+                {
+                    htmlAttributes = new { @placeholder = "XXX", @length = "3", @id = "card-year", @class = "form-control" }
+                })
+
+                @Html.ValidationMessageFor(m => m.SecurityCode, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <div class="col-6">
+                @Html.ActionLink("Back", "UserProfile","Account", null, new { @class = "btn btn-dark my-4 btn-block" })
+            </div>
+            <div class="col-6">
+                <input type="submit" value="Add card" class="btn btn-dark btn-block my-4" />
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+

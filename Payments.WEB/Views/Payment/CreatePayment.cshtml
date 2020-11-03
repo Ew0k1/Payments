@@ -1,0 +1,49 @@
+﻿@model Payments.WEB.Models.Payment.CreatePaymentViewModel
+
+@{
+    ViewBag.Title = "Create payment";
+}
+
+<h2 class="text-center">Create payment</h2>
+
+<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+    @using (Html.BeginForm("CreatePayment", "Payment", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.SelectedAccountId, Model.Accounts, "Select account",
+           htmlAttributes: new { @class = "form-control", id = "Account" })
+            @Html.ValidationMessageFor(x => x.SelectedAccountId, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Payment title" } })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", placeholder = "Amount" } })
+            @Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.RecipientNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Recipient number" } })
+            @Html.ValidationMessageFor(m => m.RecipientNumber, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control", placeholder = "Details" } })
+            @Html.ValidationMessageFor(m => m.Details, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group ">
+            <input type="submit" value="Submit" class="btn btn-dark btn-block my-4" />
+        </div>
+
+    }
+</div>
+

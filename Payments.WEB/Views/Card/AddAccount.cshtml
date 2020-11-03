@@ -1,0 +1,36 @@
+﻿@model Payments.WEB.Models.Card.AddAccountViewModel
+@{
+    ViewBag.Title = "Add Card";
+}
+
+<h2 class="text-center">Add new account</h2>
+
+<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class=" form-group">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @placeholder = "Account name", @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.SelectedCreditCardId, Model.Cards,"Select credit card",
+           htmlAttributes: new { @class = "form-control", id = "Card" })
+            @Html.ValidationMessageFor(x => x.SelectedCreditCardId, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group ">
+            <div class="row">
+                <div class="col-6">
+                    @Html.ActionLink("Back", "UserProfile", "Account", null, new { @class = "btn btn-dark btn-block my-4 btn-sm"})
+                </div>
+                <div class="col-6">
+                    <input type="submit" value="Add account" class="btn btn-dark btn-block my-4 btn-sm" />
+                </div>
+            
+
+            </div>
+        </div>
+    }
+</div>

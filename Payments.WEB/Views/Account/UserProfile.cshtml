@@ -1,0 +1,173 @@
+﻿@model Payments.WEB.Models.Account.UserProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+<div class="container">
+    <div class="row">
+        <section class="mx-3">
+            <div class="row">
+                <div class="col-6">
+                    @if (Model.Picture != null)
+                    {
+                        @Html.Raw("<img style='width:150px; height:150px;' class='img-fluid rounded shadow-sm' src=\"data:image/jpeg;base64,"
+                                + Convert.ToBase64String(Model.Picture.Image) + "\" />")
+                    }
+                    else
+                    {
+                        <img src="~/Content/Images/profile-avatar.png" alt="avatar" class="img-fluid rounded shadow-sm" width="150" height="150" />
+                    }
+                </div>
+                <div class="col-6">
+                    <p> @Model.Surname @Model.Name @Model.MiddleName  </p>
+                    <p>@Model.BirthDate.ToShortDateString()</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <hr />
+</div>
+
+<div class="container">
+    <div class="row">
+        <section class="accounts col-md-6 my-2">
+            <h2>Accounts</h2>
+            <div id="accordion">
+                @{int i = 0;}
+                @foreach (var item in Model.GetAccountsPreview(5))
+                {
+                    <div class="account shadow ">
+                        @if (i == 0)
+                        {
+                            <div class="card">
+                                <div class="card-header" id="heading_@i">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-light" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="true" aria-controls="collapse_@i">
+                                            @item.Name
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapse_@i" class="collapse show" aria-labelledby="heading_@i" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @item.Number
+                                        <p>Balance: @item.Balance UAH</p>
+                                        <p>Limit: @item.Limit </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card">
+                                <div class="card-header" id="heading_@i">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="false" aria-controls="collapse_@i">
+                                            @item.Name
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapse_@i" class="collapse" aria-labelledby="heading_@i" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @item.Number
+                                        <p>Balance: @item.Balance UAH</p>
+                                        <p>Limit: @item.Limit </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    i++;
+                }
+            </div>
+
+            <div class="row pt-2">
+                <div class="col-6 pr-1">
+                    @Html.ActionLink("Create account", "AddAccount", "Card", null, new { @class = "btn btn-dark btn-block btn-sm " })
+                </div>
+                <div class="col-6 pl-1">
+                    @Html.ActionLink("All accounts", "Accounts", "Card", null, new { @class = "btn btn-dark btn-block btn-sm" })
+
+                </div>
+            </div>
+        </section>
+        @*<section class="cards col-md-4 my-2 col-12 ">*@
+        <section class="cards col-md-6 ">
+            <h2>Cards</h2>
+            <div id="cardCarousel" class="carousel slide carousel-container mx-auto mx-sm-auto mx-md-2 mx-lg-2 " data-ride="carousel" data-interval="false">
+                <div class="carousel-inner">
+                    <div class="carousel-item  active">
+                        <div class="credit-card   ">
+                            <div class="add-new-card ">
+                                @Html.ActionLink("+", "AddCard", "Card",
+                               new { area = "" },
+                               new
+                                    {
+                                        @class = "btn btn-defaut add-btn",
+                                        data_dialog_title = "Add card"
+                                    })
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var item in Model.Cards)
+                    {
+                        <div class="carousel-item">
+                            <div class="credit-card  ">
+                                <div class="credit-card-content">
+
+                                    <div class=" credit-card-content-field ">
+                                        <span class="credit-card-text">@item.Name</span>
+                                    </div>
+
+                                    <div class=" credit-card-content-field">
+                                        <span class="credit-card-text">@item.Number</span>
+                                    </div>
+                                    <div class=" credit-card-content-field">
+                                        <span class="credit-card-text">
+                                            @item.Month/@item.Year
+                                        </span>
+                                    </div>
+                                    @Html.ActionLink("Delete card", "DeleteCard", "Card", new { id = item.Id }, new { @class = "cardItem btn btn-danger btn-sm" })
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#cardCarousel" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#cardCarousel" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="showCardDialog">
+        <div class="modal-dialog modal-dialog-centered" id="showCardContent">
+
+        </div>
+    </div>
+
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".cardItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#showCardContent').html(data);
+                    $('#showCardDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}

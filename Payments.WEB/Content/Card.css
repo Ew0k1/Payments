@@ -1,0 +1,67 @@
+﻿
+.credit-card {
+    background-image: url(/Content/Images/card-background.jpg);
+    border: 1px solid rgb(221, 221, 221);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 15px;
+    width: 100%;
+    padding-top: 66.66% !important; /* 3:2 Aspect Ratio */
+    position: relative; /* If you want text inside of it */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.credit-card-content {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.credit-card-content-field {
+    display: inline-block;
+    text-align: center;
+    background-color: rgba(245, 245, 245, 0.8);
+}
+
+.add-btn {
+    color: white;
+    font-size: xx-large;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(245, 245, 245, 0.6);
+    border-radius: 25%;
+}
+
+    .add-btn:hover {
+        background-color: rgba(0,176,76,0.6);
+        color:white;
+    }
+
+.add-new-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.carousel-container {
+    max-width: 300px;
+    max-height: 200px;
+}
+.link-card{
+    text-decoration:none;
+    
+}

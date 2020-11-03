@@ -1,0 +1,82 @@
+﻿@model List<Payments.WEB.Models.Card.AccountViewModel>
+@{
+    ViewBag.Title = "Accounts";
+}
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.ActionLink("Name", "Accounts", new { sortOrder = ViewBag.NameSortParam }, new { @class = "text-light " })
+                    </th>
+                    <th> @Html.ActionLink("Number", "Accounts", new { sortOrder = ViewBag.NumberSortParam }, new { @class = "text-light" })</th>
+                    <th>@Html.ActionLink("Balance", "Accounts", new { sortOrder = ViewBag.BalanceSortParam }, new { @class = "text-light" })</th>
+                    <th>Limit</th>
+                    <th>@Html.ActionLink("Status", "Accounts", new { sortOrder = ViewBag.StatusSortParam }, new { @class = "text-light" })</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var account in Model)
+                {
+                    if (account.IsBlocked)
+                    {
+                        <tr class="table-danger">
+                            <td>@account.Name</td>
+                            <td>@account.Number</td>
+                            <td>@account.Balance</td>
+                            <td>@account.Limit UAH</td>
+                            <td>Blocked</td>
+                            <td>@Html.ActionLink("Unblock", "UnblockAccount", new { id = account.Id }, new { @class = "accountItem text-danger" })</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr class="table-active">
+                            <td>@account.Name</td>
+                            <td>@account.Number</td>
+                            <td>@account.Balance | @Html.ActionLink("Refill", "RefillBalance", new { id = account.Id }, new { @class = "text-secondary" })</td>
+                            <td>@account.Limit UAH | @Html.ActionLink("Change", "ChangeLimit", new { id = account.Id }, new { @class = "text-secondary" })</td>
+                            <td>Active</td>
+                            <td>@Html.ActionLink("Block", "BlockAccount", new { id = account.Id }, new { @class = "accountItem text-danger" })</td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        @Html.ActionLink("Back", "UserProfile", "Account", null, new { @class = "btn btn-dark my-4" })
+        @Html.ActionLink("Create new", "AddAccount", "Card", null, new { @class = "btn btn-dark my-4" })
+    </div>
+
+    <div class="modal fade" id="showAccountDialog">
+        <div class="modal-dialog modal-dialog-centered" id="showAccountContent">
+
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".accountItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#showAccountContent').html(data);
+                    $('#showAccountDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}
+
+
